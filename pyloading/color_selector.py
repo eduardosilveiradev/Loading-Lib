@@ -79,7 +79,7 @@ class ColorSelector:
                 elif key == b"\r":  # Enter
                     return color_names[self._current_index]
                 elif key == b"q" or key == b"Q":  # Quit
-                    return "white"
+                    exit()
             else:  # Unix-like
                 key = self._get_char()
 
