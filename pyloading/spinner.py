@@ -3,16 +3,18 @@ import time
 from typing import List, Tuple
 from .base import BaseLoader
 
+
 class Spinner(BaseLoader):
     """Animated spinner with customizable characters and colors."""
-    
+
     SPINNERS = {
         'dots': ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'],
         'line': ['|', '/', '-', '\\'],
         'arrow': ['←', '↖', '↑', '↗', '→', '↘', '↓', '↙'],
-        'pulse': ['█', '▉', '▊', '▋', '▌', '▍', '▎', '▏', '▎', '▍', '▌', '▋', '▊', '▉']
+        'pulse':
+        ['█', '▉', '▊', '▋', '▌', '▍', '▎', '▏', '▎', '▍', '▌', '▋', '▊', '▉']
     }
-    
+
     COLORS = {
         'red': '\033[91m',
         'green': '\033[92m',
@@ -23,8 +25,11 @@ class Spinner(BaseLoader):
         'white': '\033[97m',
         'reset': '\033[0m'
     }
-    
-    def __init__(self, style: str = 'dots', color: str = 'white', speed: float = 0.1):
+
+    def __init__(self,
+                 style: str = 'dots',
+                 color: str = 'white',
+                 speed: float = 0.1):
         """
         Initialize the spinner.
         
@@ -37,7 +42,7 @@ class Spinner(BaseLoader):
         self._frames = self.SPINNERS.get(style, self.SPINNERS['dots'])
         self._color = self.COLORS.get(color, self.COLORS['white'])
         self._speed = speed
-        
+
     def _animate(self):
         """Animate the spinner."""
         idx = 0
@@ -45,8 +50,10 @@ class Spinner(BaseLoader):
             with self._lock:
                 self._clear_line()
                 frame = self._frames[idx]
-                sys.stdout.write(f"{self._color}{frame} {self._message}{self.COLORS['reset']}")
+                sys.stdout.write(
+                    f"{self._color}{frame} {self._message}{self.COLORS['reset']}"
+                )
                 sys.stdout.flush()
-            
+
             idx = (idx + 1) % len(self._frames)
             time.sleep(self._speed)
