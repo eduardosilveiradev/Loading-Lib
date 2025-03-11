@@ -6,6 +6,15 @@ import time
 import random
 from pyloading import Spinner, ProgressBar
 
+def demo_interactive_color():
+    """Demonstrate interactive color selection."""
+    print("\nInteractive Color Selection Demo:")
+    print("Select a color for your spinner:")
+    spinner = Spinner(style='dots', interactive_color=True)
+    spinner.start("Testing interactive color selection")
+    time.sleep(3)
+    spinner.stop()
+
 def demo_spinner():
     """Demonstrate different spinner styles."""
     print("\nSpinner Styles Demo:")
@@ -51,6 +60,7 @@ def demo_progress_bar_styles():
         progress.stop()
 
 if __name__ == "__main__":
+    demo_interactive_color()  
     demo_spinner()
     demo_progress_bar()
     demo_progress_bar_styles()

@@ -2,7 +2,7 @@ import sys
 import time
 from typing import List, Tuple
 from .base import BaseLoader
-
+from .color_selector import ColorSelector
 
 class Spinner(BaseLoader):
     """Animated spinner with customizable characters and colors."""
@@ -26,19 +26,35 @@ class Spinner(BaseLoader):
         'reset': '\033[0m'
     }
 
+    @classmethod
+    def select_color(cls) -> str:
+        """
+        Open an interactive color selector.
+
+        Returns:
+            str: The name of the selected color
+        """
+        selector = ColorSelector()
+        return selector.get_color()
+
     def __init__(self,
                  style: str = 'dots',
                  color: str = 'white',
-                 speed: float = 0.1):
+                 speed: float = 0.1,
+                 interactive_color: bool = False):
         """
         Initialize the spinner.
-        
+
         Args:
             style: The spinner style ('dots', 'line', 'arrow', 'pulse')
             color: The spinner color ('red', 'green', 'yellow', 'blue', 'purple', 'cyan', 'white')
             speed: Animation speed in seconds
+            interactive_color: If True, opens color selector on initialization
         """
         super().__init__()
+        if interactive_color:
+            color = self.select_color()
+
         self._frames = self.SPINNERS.get(style, self.SPINNERS['dots'])
         self._color = self.COLORS.get(color, self.COLORS['white'])
         self._speed = speed
