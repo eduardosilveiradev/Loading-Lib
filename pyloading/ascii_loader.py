@@ -100,38 +100,111 @@ class ASCIILoader(BaseLoader):
         ],
         'spinner': [
             """
-    *
-   ***
-  *****
- *******
-*********
- *******
-  *****
-   ***
-    *
+     *
+    ***
+   *****
+  *******
+ *********
+  *******
+   *****
+    ***
+     *
 """,
             """
-    +
-   +++
-  +++++
- +++++++
-+++++++++
- +++++++
-  +++++
-   +++
-    +
+     +
+    +++
+   +++++
+  +++++++
+ +++++++++
+  +++++++
+   +++++
+    +++
+     +
 """,
             """
-    o
-   ooo
-  ooooo
- ooooooo
-ooooooooo
- ooooooo
-  ooooo
-   ooo
-    o
+     o
+    ooo
+   ooooo
+  ooooooo
+ ooooooooo
+  ooooooo
+   ooooo
+    ooo
+     o
 """,
+        ],
+        'wave': [
+            """
+  _____     _____ 
+ /     \\   /     \\
+/       \\_/       \\
+""",
+            """
+      _____     _____
+     /     \\   /     \\
+____/       \\_/       \\
+""",
+            """
+           _____     _____
+          /     \\   /     \\
+_________/       \\_/       \\
+"""
+        ],
+        'bounce': [
+            """
+   ( ●    )
+
+
+_________________
+""",
+            """
+      ( ●    )
+
+
+_________________
+""",
+            """
+
+         ( ●    )
+
+_________________
+""",
+            """
+
+
+    ( ●    )
+_________________
+"""
+        ],
+        'radar': [
+            """
+    ╭───────╮
+    │ ╲     │
+    │   ╲   │
+    │     ╲ │
+    ╰───────╯
+""",
+            """
+    ╭───────╮
+    │     ╱ │
+    │   ╱   │
+    │ ╱     │
+    ╰───────╯
+""",
+            """
+    ╭───────╮
+    │ ╱     │
+    │   ╱   │
+    │     ╱ │
+    ╰───────╯
+""",
+            """
+    ╭───────╮
+    │     ╲ │
+    │   ╲   │
+    │ ╲     │
+    ╰───────╯
+"""
         ]
     }
 
@@ -140,7 +213,7 @@ ooooooooo
         Initialize ASCII art loader.
 
         Args:
-            pattern: Name of the ASCII art pattern ('rocket', 'clock', 'spinner')
+            pattern: Name of the ASCII art pattern ('rocket', 'clock', 'spinner', 'wave', 'bounce', 'radar')
             speed: Animation speed in seconds
         """
         super().__init__()
@@ -157,7 +230,7 @@ ooooooooo
                 if idx > 0:
                     lines = len(self._frames[0].split('\n'))
                     self._move_cursor_up(lines)
-                
+
                 # Display current frame with message
                 frame = self._frames[idx].rstrip()  # Remove trailing whitespace
                 message_lines = [

@@ -97,6 +97,27 @@ def demo_ascii_art():
     time.sleep(3)
     spinner.stop()
 
+    # Demonstrate wave animation
+    print("\nWave Animation:")
+    wave = ASCIILoader(pattern='wave', speed=0.2)
+    wave.start("Making waves...")
+    time.sleep(3)
+    wave.stop()
+
+    # Demonstrate bounce animation
+    print("\nBounce Animation:")
+    bounce = ASCIILoader(pattern='bounce', speed=0.15)
+    bounce.start("Bouncing ball effect...")
+    time.sleep(3)
+    bounce.stop()
+
+    # Demonstrate radar animation
+    print("\nRadar Scanner:")
+    radar = ASCIILoader(pattern='radar', speed=0.2)
+    radar.start("Scanning for signals...")
+    time.sleep(3)
+    radar.stop()
+
 if __name__ == "__main__":
     demo_interactive_color()
     demo_persistent_config()  # Show that preferences were saved
