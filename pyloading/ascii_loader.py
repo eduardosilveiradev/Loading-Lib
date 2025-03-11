@@ -154,12 +154,10 @@ _________/       \\_/       \\
             """
    ( ●    )
 
-
 _________________
 """,
             """
       ( ●    )
-
 
 _________________
 """,
@@ -170,7 +168,6 @@ _________________
 _________________
 """,
             """
-
 
     ( ●    )
 _________________
@@ -219,17 +216,25 @@ _________________
         super().__init__()
         self._frames = self.PATTERNS.get(pattern, self.PATTERNS['rocket'])
         self._speed = speed
+        self._frame_height = max(len(frame.split('\n')) for frame in self._frames)
 
     def _animate(self):
         """Animate the ASCII art."""
         idx = 0
         while not self._stop_event.is_set():
             with self._lock:
-                self._clear_line()
-                # Move cursor up to clear previous frame
+                # Clear entire frame area
                 if idx > 0:
-                    lines = len(self._frames[0].split('\n'))
-                    self._move_cursor_up(lines)
+                    # Move up by frame height + 1 for message line
+                    self._move_cursor_up(self._frame_height + 1)
+
+                # Clear all lines in frame area
+                for _ in range(self._frame_height + 1):
+                    self._clear_line()
+                    sys.stdout.write('\n')
+
+                # Move back up to start drawing
+                self._move_cursor_up(self._frame_height + 1)
 
                 # Display current frame with message
                 frame = self._frames[idx].rstrip()  # Remove trailing whitespace
