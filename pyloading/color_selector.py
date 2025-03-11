@@ -42,6 +42,7 @@ class ColorSelector:
     def _display_colors(self):
         """Display all available colors with selection indicator."""
         os.system("cls" if os.name == "nt" else "clear")  # Clear screen
+        print("Select a color for your preferred style:")
         print("Use ↑/↓ arrows to navigate, Enter to select, q to quit\n")
 
         for i, (name, code) in enumerate(self._colors.items()):
