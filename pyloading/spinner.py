@@ -1,8 +1,9 @@
 import sys
 import time
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 from .base import BaseLoader
 from .color_selector import ColorSelector
+from .config import Config
 
 class Spinner(BaseLoader):
     """Animated spinner with customizable characters and colors."""
@@ -38,10 +39,11 @@ class Spinner(BaseLoader):
         return selector.get_color()
 
     def __init__(self,
-                 style: str = 'dots',
-                 color: str = 'white',
-                 speed: float = 0.1,
-                 interactive_color: bool = False):
+                 style: Optional[str] = None,
+                 color: Optional[str] = None,
+                 speed: Optional[float] = None,
+                 interactive_color: bool = False,
+                 config_path: Optional[str] = None):
         """
         Initialize the spinner.
 
@@ -50,14 +52,33 @@ class Spinner(BaseLoader):
             color: The spinner color ('red', 'green', 'yellow', 'blue', 'purple', 'cyan', 'white')
             speed: Animation speed in seconds
             interactive_color: If True, opens color selector on initialization
+            config_path: Optional path to configuration file
         """
         super().__init__()
+
+        # Load config
+        self._config = Config(config_path)
+        config = self._config.get_spinner_config()
+
+        # Use provided values or fall back to config
         if interactive_color:
             color = self.select_color()
+            self._config.update_spinner_config(color=color)
 
-        self._frames = self.SPINNERS.get(style, self.SPINNERS['dots'])
-        self._color = self.COLORS.get(color, self.COLORS['white'])
-        self._speed = speed
+        self._frames = self.SPINNERS.get(style or config['style'], self.SPINNERS['dots'])
+        self._color = self.COLORS.get(color or config['color'], self.COLORS['white'])
+        self._speed = speed or config['speed']
+
+    def save_preferences(self):
+        """Save current spinner preferences to config file."""
+        style = next((k for k, v in self.SPINNERS.items() if v == self._frames), 'dots')
+        color = next((k for k, v in self.COLORS.items() if v == self._color), 'white')
+
+        self._config.update_spinner_config(
+            style=style,
+            color=color,
+            speed=self._speed
+        )
 
     def _animate(self):
         """Animate the spinner."""

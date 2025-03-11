@@ -15,6 +15,10 @@ def demo_interactive_color():
     time.sleep(3)
     spinner.stop()
 
+    # Save the selected color preference
+    spinner.save_preferences()
+    print("\nColor preference saved! Next time you create a spinner, it will use this color by default.")
+
 def demo_spinner():
     """Demonstrate different spinner styles."""
     print("\nSpinner Styles Demo:")
@@ -27,6 +31,15 @@ def demo_spinner():
             spinner.start(f"Testing {style} style in {color}")
             time.sleep(2)
             spinner.stop()
+
+def demo_persistent_config():
+    """Demonstrate loading from saved configuration."""
+    print("\nPersistent Configuration Demo:")
+    print("Creating spinner with saved preferences...")
+    spinner = Spinner()  # Will use saved preferences
+    spinner.start("Using saved preferences")
+    time.sleep(3)
+    spinner.stop()
 
 def demo_progress_bar():
     """Demonstrate progress bar functionality."""
@@ -60,7 +73,8 @@ def demo_progress_bar_styles():
         progress.stop()
 
 if __name__ == "__main__":
-    demo_interactive_color()  
+    demo_interactive_color()
+    demo_persistent_config()  # Show that preferences were saved
     demo_spinner()
     demo_progress_bar()
     demo_progress_bar_styles()
