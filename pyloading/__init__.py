@@ -7,4 +7,4 @@ from .progress import ProgressBar
 from .base import BaseLoader
 
 __version__ = "1.0.0"
-__all__ = ["Spinner", "ProgressBar", "BaseLoader", "ASCIILoader"]
+__all__ = ["Spinner", "ProgressBar", "BaseLoader"]
