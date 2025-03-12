@@ -1,0 +1,14 @@
+
+{
+  "spinner": {
+    "style": "dots",
+    "color": "white",
+    "speed": 0.1
+  },
+  "progress_bar": {
+    "color": "blue",
+    "width": 40,
+    "fill_char": "█",
+    "empty_char": "░"
+  }
+}
